@@ -1,3 +1,4 @@
 /bld/
 /build/
 .vscode
+.DS_Store
