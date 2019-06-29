@@ -65,10 +65,10 @@ void closeConfig() {
 }
 
 /**
- * @brief    Converte uma string para lowercase.
- * @param    pchConvert  String para converter.
+ * @brief    Converts a string to lowercase.
+ * @param    pchConvert  String to convert.
  *
- * @return   ponteiro para uma string previamente alocada.
+ * @return  pointer to a previously allocated string.
  */
 static char *strlwc(const char *pchConvert) {
 	static char pchReturn[ASCIILINESZ + 1];
@@ -232,8 +232,9 @@ void iniparser_dumpsection_ini(dictionary *pDictionary, char *pchSecname, FILE *
 	fprintf(pFile, "\n[%s]\n", pchSecname);
 	sprintf(keym, "%s:", pchSecname);
 	for (j = 0; j < pDictionary->size; j++) {
-		if (pDictionary->key[j] == NULL)
+		if (pDictionary->key[j] == NULL) {
 			continue;
+    }
 		if (!strncmp(pDictionary->key[j], keym, seclen + 1)) {
 			fprintf(pFile, "%-30s = %s\n", pDictionary->key[j] + seclen + 1, pDictionary->val[j] ? pDictionary->val[j] : "");
 		}
@@ -262,10 +263,12 @@ int iniparser_getsecnkeys(dictionary *pDictionary, char *pchSecName) {
 	sprintf(keym, "%s:", pchSecName);
 
 	for (j = 0; j < pDictionary->size; j++) {
-		if (pDictionary->key[j] == NULL)
+		if (pDictionary->key[j] == NULL) {
 			continue;
-		if (!strncmp(pDictionary->key[j], keym, seclen + 1))
+    }
+		if (!strncmp(pDictionary->key[j], keym, seclen + 1)) {
 			nkeys++;
+    }
 	}
 
 	return nkeys;
@@ -437,10 +440,10 @@ dictionary * iniparser_load(const char *pchIniname) {
 	char tmp[ASCIILINESZ + 1];
 	char val[ASCIILINESZ + 1];
 
-	int last = 0;
+	int last    = 0;
 	int len;
-	int lineno = 0;
-	int errs = 0;
+	int lineno  = 0;
+	int errs    = 0;
 
 	dictionary *pDictionary;
 

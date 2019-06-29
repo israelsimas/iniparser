@@ -144,7 +144,7 @@ int dictionary_set(dictionary *pDictionary, const char *pchKey, const char *pchV
 		return -1;
 	}
 
-	/* Computa hash for this parameter*/
+	/* Compute hash for this parameter*/
 	hash = dictionary_hash(pchKey);
 	/* Find if the value is already in the dictionary */
 	if (pDictionary->n > 0) {
@@ -180,9 +180,9 @@ int dictionary_set(dictionary *pDictionary, const char *pchKey, const char *pchV
 		}
 	}
 
-	pDictionary->key[i] = xstrdup(pchKey);
-	pDictionary->val[i] = pchVal ? xstrdup(pchVal) : NULL;
-	pDictionary->hash[i] = hash;
+	pDictionary->key[i]   = xstrdup(pchKey);
+	pDictionary->val[i]   = pchVal ? xstrdup(pchVal) : NULL;
+	pDictionary->hash[i]  = hash;
 	pDictionary->n++;
 
 	return 0;

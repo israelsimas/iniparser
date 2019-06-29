@@ -40,15 +40,15 @@
  * TYPEDEFS
  **************************************************************************/
 /**
- * @brief    dicionário de objetos
+ * @brief    object dictionary
  *
  */
 typedef struct _dictionary_ {
-    int             n;     		/**< Número de entradas do dicionário */
-    int           size;  			/**< Tamanho armazenado */
-    char        **val;   			/**< Lista de valores strings */
-    char        **key;   			/**< Lista de parâmetros de string */
-    unsigned     *hash;  			/**< Lista de valores hash para os parâmetros */
+    int             n;     		
+    int           size;  		
+    char        **val;   		
+    char        **key;   			
+    unsigned     *hash;  		
 } dictionary ;
 
 
@@ -57,62 +57,62 @@ typedef struct _dictionary_ {
  **************************************************************************/
 
 /**
- * @brief    Computa o hash key para uma string.
- * @param    pchKey   Caracteres de uma string ppara uso no parâmetro.
+ * @brief    Computes the hash key for a string.
+ * @param    pchKey   Character of a string for use in the parameter.
  *
- * @return   1 unsigned int ao menos 32 bits.
+ * @return   1 unsigned int to at least 32 bits.
  */
 unsigned dictionary_hash(const char *pchKey);
 
 /**
- * @brief    Cria um novo objeto de dicionário.
- * @param    size    Tamanho inicial do dicionário (opcional).
+ * @brief    Creates a new dictionary object.
+ * @param    size    Initial dictionary size (optional).
  *
- * @return   1 dicionário alocado.
+ * @return   1 dictionary allocated.
  */
 dictionary *dictionary_new(int size);
 
 /**
- * @brief    Remove um dicionário
- * @param    pDictionary   dicionário para ser removido.
+ * @brief    Removes a dictionary
+ * @param    pDictionary   dictionary to be removed.
  *
  * @return   void
  */
 void dictionary_del(dictionary *pDictionary);
 
 /**
- * @brief    Recupera o valor de um dicionário.
- * @param    pDictionary       dicionário a ser procurado.
- * @param    pchKey     Parâmetro para busca no dicionário.
- * @param    pchDef     Valor padrão para retorno se não encontrar parâmetro.
+ * @brief    Retrieves the value of a dictionary.
+ * @param    pDictionary       dictionary to be searched.
+ * @param    pchKey     Parameter for dictionary search.
+ * @param    pchDef     Default value for return if no parameter is found.
  *
- * @return   1 ponteiro de retorno.
+ * @return   1 return pointer.
  */
 char *dictionary_get(dictionary *pDictionary, const char *pchKey, char *pchDef);
 
 /**
- * @brief    Configura um valor de um dicionário.
- * @param    pDictionary       dicionário para modificar.
- * @param    pchKey     parâmetro a ser modificado.
- * @param    pchVal     Valor para inserir.
+ * @brief    Sets a value for a dictionary.
+ * @param    pDictionary      dictionary to modify.
+ * @param    pchKey     parameter to be modified.
+ * @param    pchVal     Value to insert.
  *
- * @return   int     0 se Ok
+ * @return   int     0 if Ok
  */
 int dictionary_set(dictionary *pDictionary, const char *pchKey, const char *pchVal);
 
 /**
- * @brief    Remove um parâmetro do dicionário
- * @param    pDictionary       Dicionário a ser modificado.
- * @param    pchKey     parâmetro a ser removido.
+ * @brief    Removes a parameter from the dictionary
+ * @param    pDictionary       Dictionary to be modified.
+ * @param    pchKey     parameter to be removed.
  *
  * @return   void
  */
 void dictionary_unset(dictionary *pDictionary, const char *pchKey);
 
 /**
- * @brief    Dump um dicionário para um ponteiro de arquivo.
- * @param    pDictionary   Dicionário para dump
- * @param    pFile   ponteiro do arquivo aberto.
+ * @brief    Dump a dictionary to a file pointer.
+ * @param    pDictionary   Dictionary for dump
+ * @param    pFile   open file pointer.
  *
  * @return   void
  */
