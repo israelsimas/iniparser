@@ -1,4 +1,4 @@
-# Database
+# Iniparser
 
 Parser to read the parameters of files of type INI.
 
