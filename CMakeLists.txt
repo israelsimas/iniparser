@@ -17,3 +17,4 @@ add_library(iniparser SHARED ${sources} ${headers})
 
 install(TARGETS iniparser DESTINATION /usr/local/lib)
 install(FILES "lib/include/iniparser.h" DESTINATION /usr/local/include)
+install(FILES "lib/include/dictionary.h" DESTINATION /usr/local/include)
