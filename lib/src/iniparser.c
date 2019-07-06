@@ -9,6 +9,7 @@
  **************************************************************************/
 
 #include <ctype.h>
+#include "dictionary.h"
 #include "iniparser.h"
 
 #define THIS_FILE "iniparser.c"
