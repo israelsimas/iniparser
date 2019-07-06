@@ -39,7 +39,6 @@
 #define CFG_CHANNELS_NUMBER       "handsetGeneral:channelsNumber"
 #define CFG_MULTCAST_SUPPORT      "handsetGeneral:multicastSupport"
 #define CFG_HEADSET_SUPPORT       "handsetGeneral:headsetSupport"
-#define CFG_HANDSET_BUSID         "bus:handset_id"
 
 // Handset Phone
 #define CFG_HANDSET_TYPE          "handset%d:type"
@@ -66,11 +65,17 @@
 #define CFG_CTRL_CALL_VERSION		  "controlCall:version"
 #define CFG_ENDPOINT_MASTER 		  "controlCall:endpointMasterSupport"
 #define CFG_HASH_URI 				      "controlCall:hashURI"
+#define CFG_CTRL_CALL_SHAREMEM    "controlCall:sharedmem"
+
+// general
 #define CFG_PRODUCT		  			    "general:product"
 #define CFG_PRODUCT_VERSION       "general:version"
 #define CFG_TYPE		  			      "general:type"
 #define CFG_DATABASE	  			    "general:database_path"
+
+// bus
 #define CFG_CTRL_CALL_BUSID			  "bus:controlcall_id"
+#define CFG_HANDSET_BUSID         "bus:handset_id"
 
 #define PARAM_CONFIG_NAME_SIZE    50
 
