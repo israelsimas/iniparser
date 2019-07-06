@@ -15,7 +15,7 @@
 
 dictionary  *pIniFile;
 
-int openConfig() {
+int iniparser_open() {
 
   pIniFile = iniparser_load(CONFIG_FILE_PATH);
   if (pIniFile == NULL) {
@@ -26,7 +26,7 @@ int openConfig() {
   return 1;
 }
 
-int getConfig(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType) {
+int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType) {
 
   int statusCfg = 1;
 
@@ -60,7 +60,7 @@ int getConfig(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType) {
   return statusCfg;
 }
 
-void closeConfig() {
+void iniparser_close() {
   iniparser_freedict(pIniFile);
 }
 

@@ -120,7 +120,7 @@ typedef enum _line_status_ {
 /*
  * Realize a open to a file with system configs.
  */
-int openConfig();
+int iniparser_open();
 
 /**
  * Retrieves one or more parameters from the System Resources file.
@@ -132,13 +132,13 @@ int openConfig();
  *
  * @return int Inidicate that parameter was load with success.
  */
-int getConfig(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType);
+int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType);
 
 
 /**
  * Close the config instance.
  */
-void closeConfig();
+void iniparser_close();
 
 /**
  * @brief    Retrieves the number of sections in a dictionary
