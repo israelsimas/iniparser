@@ -14,3 +14,6 @@ file(GLOB headers "lib/include/*.h" )
 file(GLOB sources "lib/src/*.c" )
 
 add_library(iniparser SHARED ${sources} ${headers})
+
+install(TARGETS iniparser DESTINATION /usr/local/lib)
+install(FILES "lib/include/iniparser.h" DESTINATION /usr/local/include)
