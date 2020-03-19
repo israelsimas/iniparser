@@ -21,7 +21,7 @@ mkdir build && cd build/ && cmake -G "Sublime Text 2 - Unix Makefiles" ../
 #define CFG_MULTCAST_SUPPORT      "handsetGeneral:multicastSupport"  
 #define CFG_HEADSET_SUPPORT       "handsetGeneral:headsetSupport"  
 
-// Handset Phone  
+/* Handset Phone */  
 #define CFG_HANDSET_TYPE          "handset%d:type"  
 #define CFG_NUMBER_SOFTKEYS       "handset%d:numberSoftkeys"  
 #define CFG_MODULE_SUPPORT        "handset%d:moduleSupport"  
@@ -32,7 +32,7 @@ mkdir build && cd build/ && cmake -G "Sublime Text 2 - Unix Makefiles" ../
 #define CFG_BACKLIGHT_SUPPORT     "handset%d:backlightSupport"  
 #define CFG_DISPLAY_SIZE          "handset%d:displaySize"  
 
-// Control-call  
+/* Control-call */  
 #define CFG_MULT_ACCOUNTS         "controlCall:multiAccountsSupport"  
 #define CFG_ACCOUNTS_NUMBER       "controlCall:accountNumber"  
 #define CFG_ACCOUNTS_PER_ENDPOINT "controlCall:accountPerEndpoint"  
@@ -48,13 +48,13 @@ mkdir build && cd build/ && cmake -G "Sublime Text 2 - Unix Makefiles" ../
 #define CFG_HASH_URI              "controlCall:hashURI"  
 #define CFG_CTRL_CALL_SHAREMEM    "controlCall:sharedmem"  
 
-// general  
+/* general */  
 #define CFG_PRODUCT               "general:product"  
 #define CFG_PRODUCT_VERSION       "general:version"  
 #define CFG_TYPE                  "general:type"  
 #define CFG_DATABASE              "general:database_path"  
 
-// bus  
+/* bus middleware */  
 #define CFG_CTRL_CALL_BUSID       "bus:controlcall_id"  
 #define CFG_HANDSET_BUSID         "bus:handset_id"  
 </pre>
