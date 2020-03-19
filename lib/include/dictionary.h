@@ -44,11 +44,11 @@
  *
  */
 typedef struct _dictionary_ {
-    int             n;     		
-    int           size;  		
-    char        **val;   		
-    char        **key;   			
-    unsigned     *hash;  		
+  int              n;     		
+  int           size;  		
+  char         **val;   		
+  char         **key;   			
+  unsigned     *hash;  		
 } dictionary ;
 
 
