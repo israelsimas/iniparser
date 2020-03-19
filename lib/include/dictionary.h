@@ -27,13 +27,13 @@
  * DEFINITIONS
  **************************************************************************/
 
-/** Maior valor para integers e doubles. */
+/** Major value for integers and doubles */
 #define MAXVALSZ    1024
 
-/** Número mínimo alocado de entradas para um dicionário */
+/** Minimum number alocated to entry for a dictionary */
 #define DICTMINSZ   128
 
-/** Token inválido */
+/** Token invalid */
 #define DICT_INVALID_KEY    ((char *)-1)
 
 /**************************************************************************

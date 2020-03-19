@@ -9,7 +9,7 @@
  **************************************************************************/
 
 #include <ctype.h>
-#include "iniparser.h"
+#include <iniparser.h>
 
 #define THIS_FILE "iniparser.c"
 
@@ -19,8 +19,8 @@ int iniparser_open() {
 
   pIniFile = iniparser_load(CONFIG_FILE_PATH);
   if (pIniFile == NULL) {
-      printf("Cannot parse file: %s", CONFIG_FILE_PATH);
-      return 0;
+    printf("Cannot parse file: %s", CONFIG_FILE_PATH);
+    return 0;
   }
 
   return 1;
@@ -31,9 +31,14 @@ int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eTy
   int statusCfg = 1;
 
   switch(eType) {
+
     case TYPE_CHAR:
-    case TYPE_STRING:
-      *((char **)pParamValue) = strdup(iniparser_getstring(pIniFile, pchParamName, NULL));
+    case TYPE_STRING: {
+      char *pchValue = iniparser_getstring(pIniFile, pchParamName, NULL);
+      if (pchValue) {
+        *((char **)pParamValue) = strdup(pchValue);
+      }
+    }
       break;
 
     case TYPE_BYTE:
@@ -71,15 +76,16 @@ void iniparser_close() {
  * @return  pointer to a previously allocated string.
  */
 static char *strlwc(const char *pchConvert) {
+
 	static char pchReturn[ASCIILINESZ + 1];
-	int i;
+	int i = 0;
 
 	if (pchConvert == NULL) {
 		return NULL;
 	}
 
 	memset(pchReturn, 0, ASCIILINESZ + 1);
-	i = 0;
+
 	while (pchConvert[i] && i < ASCIILINESZ) {
 		pchReturn[i] = (char) tolower((int) pchConvert[i]);
 		i++;
@@ -97,6 +103,7 @@ static char *strlwc(const char *pchConvert) {
  * @return   pointer to a previously allocated string.
  */
 static char *strstrip(const char *pchParser) {
+
 	static char pchReturn[ASCIILINESZ + 1];
 	char *pchLast;
 
@@ -126,6 +133,7 @@ static char *strstrip(const char *pchParser) {
 }
 
 int iniparser_getnsec(dictionary *pDictionary) {
+
 	int i, nsec;
 
 	if (pDictionary == NULL) {
@@ -145,6 +153,7 @@ int iniparser_getnsec(dictionary *pDictionary) {
 }
 
 char *iniparser_getsecname(dictionary *pDictionary, int numSection) {
+
 	int i, foundsec;
 
 	if ((pDictionary == NULL) || (numSection < 0)) {
@@ -161,6 +170,7 @@ char *iniparser_getsecname(dictionary *pDictionary, int numSection) {
 				break;
 		}
 	}
+
 	if (foundsec <= numSection) {
 		return NULL;
 	}
@@ -169,6 +179,7 @@ char *iniparser_getsecname(dictionary *pDictionary, int numSection) {
 }
 
 void iniparser_dump(dictionary *pDictionary, FILE *pFile) {
+
 	int i;
 
 	if ((pDictionary == NULL) || (pFile == NULL)) {
@@ -189,6 +200,7 @@ void iniparser_dump(dictionary *pDictionary, FILE *pFile) {
 }
 
 void iniparser_dump_ini(dictionary *pDictionary, FILE *pFile) {
+
 	int i, nsec;
 	char *pchSecName;
 
@@ -217,6 +229,7 @@ void iniparser_dump_ini(dictionary *pDictionary, FILE *pFile) {
 }
 
 void iniparser_dumpsection_ini(dictionary *pDictionary, char *pchSecname, FILE *pFile) {
+
 	char keym[ASCIILINESZ + 1];
 	int j, seclen;
 
@@ -246,6 +259,7 @@ void iniparser_dumpsection_ini(dictionary *pDictionary, char *pchSecname, FILE *
 }
 
 int iniparser_getsecnkeys(dictionary *pDictionary, char *pchSecName) {
+
 	int j, seclen, nkeys;
 	char keym[ASCIILINESZ + 1];
 
@@ -312,6 +326,7 @@ char **iniparser_getseckeys(dictionary *pDictionary, char *pchSecname) {
 }
 
 char *iniparser_getstring(dictionary *pDictionary, const char *pchKey, char *pchDef) {
+
 	char *pchLc_key;
 	char *pchSval;
 
@@ -326,6 +341,7 @@ char *iniparser_getstring(dictionary *pDictionary, const char *pchKey, char *pch
 }
 
 int iniparser_getint(dictionary *pDictionary, const char *pchKey, int notfound) {
+
 	char *pchStr;
 
 	pchStr = iniparser_getstring(pDictionary, pchKey, INI_INVALID_KEY);
@@ -337,6 +353,7 @@ int iniparser_getint(dictionary *pDictionary, const char *pchKey, int notfound) 
 }
 
 double iniparser_getdouble(dictionary *pDictionary, const char *pchKey, double notfound) {
+
 	char *pchStr;
 
 	pchStr = iniparser_getstring(pDictionary, pchKey, INI_INVALID_KEY);
@@ -348,6 +365,7 @@ double iniparser_getdouble(dictionary *pDictionary, const char *pchKey, double n
 }
 
 int iniparser_getboolean(dictionary *pDictionary, const char *pchKey, int notfound) {
+
 	char *pKey;
 	int ret;
 
@@ -368,6 +386,7 @@ int iniparser_getboolean(dictionary *pDictionary, const char *pchKey, int notfou
 }
 
 int iniparser_find_entry(dictionary *pIni, const char *pchEntry) {
+
 	int found = 0;
 
 	if (iniparser_getstring(pIni, pchEntry, INI_INVALID_KEY) != INI_INVALID_KEY) {
@@ -386,6 +405,7 @@ void iniparser_unset(dictionary *pIni, const char *pchEntry) {
 }
 
 static E_LINE_STATUS iniparser_line(const char *pchInputLine, char *pchSection, char *pchKey, char *pchValue) {
+
 	E_LINE_STATUS sta;
 	char pchLine[ASCIILINESZ + 1];
 	int len;
@@ -395,13 +415,13 @@ static E_LINE_STATUS iniparser_line(const char *pchInputLine, char *pchSection, 
 
 	sta = LINE_UNPROCESSED;
 	if (len < 1) {
-		/* Linha vazia */
+		/* empty line */
 		sta = LINE_EMPTY;
 	} else if ((pchLine[0] == '#') || (pchLine[0] == ';')) {
-		/* Linha comentada */
+		/* commented line */
 		sta = LINE_COMMENT;
 	} else if ((pchLine[0] == '[') && (pchLine[len - 1] == ']')) {
-		/* Nome da seção */
+		/* section name */
 		sscanf(pchLine, "[%[^]]", pchSection);
 		strcpy(pchSection, strstrip(pchSection));
 		strcpy(pchSection, strlwc(pchSection));
@@ -432,7 +452,9 @@ static E_LINE_STATUS iniparser_line(const char *pchInputLine, char *pchSection, 
 }
 
 dictionary * iniparser_load(const char *pchIniname) {
+
 	FILE *pFileIn;
+  dictionary *pDictionary;
 
 	char line[ASCIILINESZ + 1];
 	char section[ASCIILINESZ + 1];
@@ -443,9 +465,7 @@ dictionary * iniparser_load(const char *pchIniname) {
 	int last    = 0;
 	int len;
 	int lineno  = 0;
-	int errs    = 0;
-
-	dictionary *pDictionary;
+	int errs    = 0;	
 
 	if ((pFileIn = fopen(pchIniname, "r")) == NULL) {
 		printf("iniparser: can not open %s", pchIniname);
@@ -491,6 +511,7 @@ dictionary * iniparser_load(const char *pchIniname) {
 		}
 
 		switch (iniparser_line(line, section, key, val)) {
+
 			case LINE_EMPTY:
 			case LINE_COMMENT:
 				break;

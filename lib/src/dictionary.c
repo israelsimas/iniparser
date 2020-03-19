@@ -8,11 +8,11 @@
  *
  **************************************************************************/
 
-#include "dictionary.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <dictionary.h>
 
 /**************************************************************************
  * PRIVATE FUNCTIONS
@@ -20,12 +20,14 @@
 
 /* Allocation of Doubles associated with the pointer */
 static void *mem_double(void *pMem, int size) {
+
 	void *newptr;
 
 	newptr = calloc(2 * size, 1);
 	if (newptr == NULL) {
 		return NULL;
 	}
+
 	memcpy(newptr, pMem, size);
 	free(pMem);
 
@@ -39,6 +41,7 @@ static void *mem_double(void *pMem, int size) {
  * @return   Pointer to new allocated string
  */
 static char *xstrdup(const char *pchDup) {
+
 	char *pchTemp;
 
 	if (!pchDup) {
@@ -54,6 +57,7 @@ static char *xstrdup(const char *pchDup) {
 }
 
 unsigned dictionary_hash(const char *pchKey) {
+
 	int len, i;
 	unsigned hash;
 
@@ -71,6 +75,7 @@ unsigned dictionary_hash(const char *pchKey) {
 }
 
 dictionary * dictionary_new(int size) {
+
 	dictionary *pDictionary;
 
 	/* If no size was specified, allocate space for DICTMINSZ */
@@ -91,6 +96,7 @@ dictionary * dictionary_new(int size) {
 }
 
 void dictionary_del(dictionary *pDictionary) {
+
 	int i;
 
 	if (pDictionary == NULL) {
@@ -117,6 +123,7 @@ void dictionary_del(dictionary *pDictionary) {
 }
 
 char *dictionary_get(dictionary *pDictionary, const char *pchKey, char *pchDef) {
+
 	unsigned hash;
 	int i;
 
@@ -137,6 +144,7 @@ char *dictionary_get(dictionary *pDictionary, const char *pchKey, char *pchDef) 
 }
 
 int dictionary_set(dictionary *pDictionary, const char *pchKey, const char *pchVal) {
+
 	int i;
 	unsigned hash;
 
@@ -189,6 +197,7 @@ int dictionary_set(dictionary *pDictionary, const char *pchKey, const char *pchV
 }
 
 void dictionary_unset(dictionary *pDictionary, const char *pchKey) {
+
 	unsigned hash;
 	int i;
 
@@ -225,6 +234,7 @@ void dictionary_unset(dictionary *pDictionary, const char *pchKey) {
 }
 
 void dictionary_dump(dictionary *pDictionary, FILE *pFile) {
+
 	int i;
 
 	if ((pDictionary == NULL) || (pFile == NULL)) {
