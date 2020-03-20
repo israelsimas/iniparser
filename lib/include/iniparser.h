@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dictionary.h>
+#include <standard-types.h>
 
 /**************************************************************************
  * DEFINITIONS
@@ -74,7 +75,7 @@ typedef enum _line_status_ {
 /*
  * Realize a open to a file with system configs.
  */
-int iniparser_open();
+bool iniparser_open();
 
 /**
  * Retrieves one or more parameters from the System Resources file.
@@ -84,9 +85,9 @@ int iniparser_open();
  * @param pchParamValue pointer to value.
  * @param wLength Lenght buffer that returns.
  *
- * @return int Inidicate that parameter was load with success.
+ * @return bool Inidicate that parameter was load with success.
  */
-int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType);
+bool iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType);
 
 
 /**

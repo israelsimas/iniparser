@@ -10,25 +10,26 @@
 
 #include <ctype.h>
 #include <iniparser.h>
+#include <utils.h>
 
 #define THIS_FILE "iniparser.c"
 
 dictionary  *pIniFile;
 
-int iniparser_open() {
+bool iniparser_open() {
 
   pIniFile = iniparser_load(CONFIG_FILE_PATH);
   if (pIniFile == NULL) {
-    printf("Cannot parse file: %s", CONFIG_FILE_PATH);
-    return 0;
+    log_error("Cannot parse file: %s", CONFIG_FILE_PATH);
+    return false;
   }
 
-  return 1;
+  return true;
 }
 
-int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType) {
+bool iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eType) {
 
-  int statusCfg = 1;
+  int statusCfg = true;
 
   switch(eType) {
 
@@ -58,7 +59,7 @@ int iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eTy
       break;
 
     default:
-      statusCfg = 0;
+      statusCfg = false;
       break;
   }
 
@@ -137,7 +138,7 @@ int iniparser_getnsec(dictionary *pDictionary) {
 	int i, nsec;
 
 	if (pDictionary == NULL) {
-		return -1;
+		return ERROR;
 	}
 
 	nsec = 0;
@@ -212,8 +213,9 @@ void iniparser_dump_ini(dictionary *pDictionary, FILE *pFile) {
 	if (nsec < 1) {
 		/* No section in file: dump all keys as they are */
 		for (i = 0; i < pDictionary->size; i++) {
-			if (pDictionary->key[i] == NULL)
+			if (pDictionary->key[i] == NULL) {
 				continue;
+      }
 			fprintf(pFile, "%s = %s\n", pDictionary->key[i], pDictionary->val[i]);
 		}
 		return;
@@ -223,6 +225,7 @@ void iniparser_dump_ini(dictionary *pDictionary, FILE *pFile) {
 		pchSecName = iniparser_getsecname(pDictionary, i);
 		iniparser_dumpsection_ini(pDictionary, pchSecName, pFile);
 	}
+
 	fprintf(pFile, "\n");
 
 	return;
@@ -327,8 +330,7 @@ char **iniparser_getseckeys(dictionary *pDictionary, char *pchSecname) {
 
 char *iniparser_getstring(dictionary *pDictionary, const char *pchKey, char *pchDef) {
 
-	char *pchLc_key;
-	char *pchSval;
+	char *pchLc_key, *pchSval;
 
 	if ((pDictionary == NULL) || (pchKey == NULL)) {
 		return pchDef;
@@ -387,10 +389,10 @@ int iniparser_getboolean(dictionary *pDictionary, const char *pchKey, int notfou
 
 int iniparser_find_entry(dictionary *pIni, const char *pchEntry) {
 
-	int found = 0;
+	int found = false;
 
 	if (iniparser_getstring(pIni, pchEntry, INI_INVALID_KEY) != INI_INVALID_KEY) {
-		found = 1;
+		found = true;
 	}
 
 	return found;
@@ -468,7 +470,7 @@ dictionary * iniparser_load(const char *pchIniname) {
 	int errs    = 0;	
 
 	if ((pFileIn = fopen(pchIniname, "r")) == NULL) {
-		printf("iniparser: can not open %s", pchIniname);
+		log_error("can not open %s", pchIniname);
 		return NULL;
 	}
 
@@ -526,7 +528,7 @@ dictionary * iniparser_load(const char *pchIniname) {
 				break;
 
 			case LINE_ERROR:
-				printf("iniparser: error %s", pchIniname);
+				log_error("error %s", pchIniname);
 				fprintf(stderr, "-> %s\n", line);
 				errs++;
 				break;
@@ -538,7 +540,7 @@ dictionary * iniparser_load(const char *pchIniname) {
 		memset(line, 0, ASCIILINESZ);
 		last = 0;
 		if (errs < 0) {
-			printf("iniparser: failed to alocate memory");
+			log("iniparser: failed to alocate memory");
 			break;
 		}
 	}

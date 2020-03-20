@@ -15,12 +15,17 @@ file(GLOB headers "lib/include/*.h" )
 file(GLOB sources "lib/src/*.c" )
 
 IF(TESTS)
+
   file(GLOB headers_test ${headers} "tests/include/*.h" )
   file(GLOB sources_test ${sources} "tests/src/*.cpp" )
   add_executable(iniparser_test ${sources_test} ${headers_test})
-  target_link_libraries( iniparser_test CppUTest CppUTestExt)  
+  target_link_libraries( iniparser_test utils CppUTest CppUTestExt)  
+
 ELSE()
-  add_library(iniparser SHARED ${sources} ${headers})  
+
+  add_library(iniparser SHARED ${sources} ${headers})
+  target_link_libraries(iniparser utils)  
+
   set (VERSION 1.0.0)
   add_definitions (-DCMAKE -DVERSION=\"${VERSION}\")
 
@@ -33,6 +38,7 @@ ELSE()
   install(TARGETS iniparser DESTINATION /usr/local/lib)
   install(FILES "lib/include/iniparser.h" DESTINATION /usr/local/include)
   install(FILES "lib/include/dictionary.h" DESTINATION /usr/local/include)
+  
 ENDIF(TESTS)
 
 
