@@ -12,6 +12,10 @@
 #ifndef _INIPARSER_H_
 #define _INIPARSER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**************************************************************************
  * INCLUDES
  **************************************************************************/
@@ -240,5 +244,9 @@ dictionary *iniparser_load(const char *pIniname);
  * @return   void
  */
 void iniparser_freedict(dictionary *pDictionary);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
