@@ -44,10 +44,13 @@ bool iniparser_get_config(char *pchParamName, void *pParamValue, E_PARAM_TYPE eT
 
     case TYPE_BYTE:
     case TYPE_HEX:
-    case TYPE_INT:
     case TYPE_WORD:
     case TYPE_DWORD:
       *((unsigned short *)pParamValue) = iniparser_getint(pIniFile, pchParamName, -1);
+      break;
+
+    case TYPE_INT:
+      *((int *)pParamValue) = iniparser_getint(pIniFile, pchParamName, -1);
       break;
 
     case TYPE_DOUBLE:
